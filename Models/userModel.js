@@ -1,6 +1,5 @@
 const db = require('../data/config')
 
-
 async function findUserById ( id ) {
   const user = await db('users').where('id', id)
   try {
@@ -19,7 +18,9 @@ async function add ( userData ) {
   }
 
   async function findUserBy ( username ) {
-    const user = await db('users').where('username', username)
+    const user = await db('users')
+        .where('username', username)
+        .select('id', 'username', 'department')
     try {
       return user
     } catch (err) {
@@ -32,6 +33,5 @@ async function add ( userData ) {
 
 module.exports = {
   findUserBy,
-  findUserById,
   add
 }
